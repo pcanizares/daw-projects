@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <!-- boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <!-- para q funcione el plugin <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+      
+ 
+    
+    <title>Formlario</title>
+	
+	
+</head>
+<body>
+    <div class="container">
+        <form id='formulario'>
+          <!--nombre-->
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre">
+                <div id="errorNombre" class="invalid-tooltip">
+                  Nombre incorrecto
+                </div>
+            </div>
+          </div>   
+          <!--apellido-->
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                  <label for="apellido">Apellidos</label>
+                  <input type="text" class="form-control" id="apellido">
+                  <div id="errorApellido" class="invalid-tooltip">
+                     Debe introducir dos apellidos
+                  </div>
+              </div>
+            </div>
+            <!--dni-->
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="dni">DNI</label>
+                <input type="text" class="form-control" id="dni">
+                <div class="error">
+                </div>
+              </div>
+            </div>
+            <!--edad-->
+            <!-- <div class="form-group">
+              <div class="form-check"> -->
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="edad" >
+                <label class="form-check-label" for="edad">
+                   Menor de Edad
+                </label>
+              </div>
+            </div>
+            <!--email-->
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email">
+                <div id="errorEmail" class="invalid-tooltip">
+                  Email incorrecto
+                </div>
+              </div>
+            </div> 
+            <!--password-->
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" class="form-control" id="passwd">
+                <div id="errorPasswd" class="invalid-tooltip">
+                  Debe contener mas de 8 cifras entre mayusculas minusculas y simbolos 
+                </div>
+              </div>
+            </div>
+
+        
+    
+    
+    
+    
+    
+          <button class="btn btn-primary" type="submit" id="bt">Enviar</button>
+        </form>
+      </div>
+    
+    <!--modal-->
+      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!--cabecera
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>-->
+            <!--body-->
+            <div id="mensaje" class="modal-body">
+            </div>
+            <!--botones-->
+            <div id="bt-modal" class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+  
+  
+
+  <!-- jq ui -->
+  <script src='./jquery-ui-1.12.1/jquery-ui.js'></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- plugin -->	
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+	<script src="plugin/password_strength.js"></script>
+	<script src="plugin/jquery-strength.js"></script>
+<script src="main.js"></script>
+    
+</body>
+</html>
