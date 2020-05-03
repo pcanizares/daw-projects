@@ -1,5 +1,4 @@
 $(function () {
-
   // Inicializar edad a no checked
   $("#edad").prop("checked", false);
 
@@ -13,64 +12,97 @@ $(function () {
       strong: "Fuerte",
     },
     templates: {
-      toggle:
-        '',
+      toggle: "",
       meter: '<div class="{meterClass}">{score}</div>',
       score: '<span class="badge {scoreClass}"></span>',
       main:
-        '<div class="{containerClass}"><div class="input-group">{input}{toggle}</div>{meter}</div>'
+        '<div class="{containerClass}"><div class="input-group">{input}{toggle}</div>{meter}</div>',
     },
     scoreClasses: {
-      empty: '',
-      invalid: 'badge-danger',
-      weak: 'badge-warning',
-      good: 'badge-info',
-      strong: 'badge-success'
+      empty: "",
+      invalid: "badge-danger",
+      weak: "badge-warning",
+      good: "badge-info",
+      strong: "badge-success",
     },
   });
 
   // Boton modal
-  $('#bt-m').click(function() {
+  $("#bt-m").click(function () {
     // Crear boton volver
-    let volver = '<div id="divBtnVolver"><button type="button" id="btn-volver" class="btn btn-primary btn-block">Volver al formulario</button></div>';
+    let volver =
+      '<div id="divBtnVolver" class="text-center"><button type="button" id="btn-volver" class="btn btn-primary">Volver al formulario</button></div>';
 
     // Ocultar formulario
-    $('#formulario').css('display', 'none');
+    $("#formulario").css("display", "none");
 
     // Mostrar boton volver
-    $('#main').append(volver);
+    $("#main").append(volver);
+
+    $("#btn-volver").animate({top: "100px", height: "80px", width: "100%"},1000);
+
   });
 
-
   // Boton volver al formulario
-  $(document).on('click', '#btn-volver', function() {
+  $(document).on("click", "#btn-volver", function () {
     // Quitar la capa del boton volver
-    $('#divBtnVolver').remove();
+    $("#divBtnVolver").remove();
 
     // Mostrar de nuevo el formulario
-    $('#formulario').css('display', 'block');
+    $("#formulario").css("display", "block");
 
     // Inicializar el checkbox a no checked
     $("#edad").prop("checked", false);
   });
 
+  // Validar dni en keyup
+  $("#dni").keyup(function () {
+    dni();
+  });
+  
+  // Validad edad al click edad
+  $("#edad").click(function () {
+    edad();
+  });
+
   // Boton enviar formulario
   $("#bt").click(function (e) {
     e.preventDefault();
-    nombre();
-    apellido();
-    email();
-    passwd();
+    // nombre();
+    // apellido();
+    // dni();
+    // email();
+    // passwd();
+
+    if(validarFormulario()) {
+      $('#formulario').submit();
+    }
   });
+
+
 });
 
-$("#dni").keyup(function () {
-  dni();
-});
+function validarFormulario() {
+  let ok = true;
+  if(!nombre()) {
+    ok = false;
+  }
+  if(apellido()) {
+    ok = false;
+  }
+  if(!dni(true)) {
+    ok = false;
+  }
+  if(!email()) {
+    ok = false;
+  }
+  if(!passwd()) {
+    ok = false;
+  }
 
-$("#edad").click(function () {
-  edad();
-});
+  return ok;
+  
+}
 
 function nombre() {
   var nombre = $("#nombre").val();
@@ -80,14 +112,18 @@ function nombre() {
     $("#nombre").removeClass("is-invalid");
     $("#nombre").addClass("is-valid");
     $("#errorNombre").css("display", "none");
+    return true;
   } else {
     //error
     $("#nombre").removeClass("is-valid");
     $("#nombre").addClass("is-invalid");
 
     $("#errorNombre").css("display", "block");
+    $("#errorNombre").effect("slide");
+    return false;
   }
 }
+
 function apellido() {
   var apellido = $("#apellido").val();
   //asi permite apellido compuestos para no permitr quitar el ultimo +
@@ -97,22 +133,26 @@ function apellido() {
     $("#apellido").removeClass("is-invalid");
     $("#apellido").addClass("is-valid");
     $("#errorApellido").css("display", "none");
+    return true;
   } else {
     //error
     $("#apellido").removeClass("is-valid");
     $("#apellido").addClass("is-invalid");
 
     $("#errorApellido").css("display", "block");
+    $("#errorApellido").effect("slide");
+    return false;
   }
 }
 
-function dni() {
+function dni(clickBoton = false) {
   $("#dni").val($("#dni").val().toUpperCase());
 
   var dni = $("#dni").val();
 
   var patron = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]{1}$/;
-
+  console.log("length", dni.length);
+  let ok = true;
   if (dni.match(patron)) {
     if (dni.length == 9) {
       let numero = dni.substr(0, 8);
@@ -127,12 +167,36 @@ function dni() {
         // limpiar
         $("#dni").removeClass("is-invalid");
         $("#dni").addClass("is-valid");
+        ok = true;
+      } else {
+        $("#dni").removeClass("is-valid");
+        $("#dni").addClass("is-invalid");
+        ok = false;
       }
     }
   } else {
+    ok = false;
     $("#dni").removeClass("is-valid");
     $("#dni").addClass("is-invalid");
   }
+
+  if (ok) {
+    $("#errorDni").css("display", "none");
+  } else {
+    if(clickBoton) {
+      $("#errorDni").addClass("invalid-tooltip");
+      $("#errorDni").css("display", "block");
+      $("#errorDni").effect("slide");
+    } else if(dni.length >= 9){
+      $("#errorDni").addClass("invalid-tooltip");
+      $("#errorDni").css("display", "block");
+      $("#errorDni").effect("slide");
+
+    }
+  }
+
+  return ok;
+
 }
 
 function edad() {
@@ -149,6 +213,7 @@ function edad() {
     };
   }
 }
+
 function email() {
   var email = $("#email").val();
   var patron = /^[a-zA-Z]+[a-zA-Z0-9_\.]*@[a-zA-Z]+\.[a-zA-Z]{2,3}$/;
@@ -157,13 +222,17 @@ function email() {
     $("#email").removeClass("is-invalid");
     $("#email").addClass("is-valid");
     $("#errorEmail").css("display", "none");
+    return true;
   } else {
     //error
     $("#email").removeClass("is-valid");
     $("#email").addClass("is-invalid");
     $("#errorEmail").css("display", "block");
+    $("#errorEmail").effect("slide");
+    return false;
   }
 }
+
 function passwd() {
   var passwd = $("#passwd").val();
 
@@ -173,10 +242,16 @@ function passwd() {
     $("#passwd").removeClass("is-invalid");
     $("#passwd").addClass("is-valid");
     $("#errorPasswd").css("display", "none");
+    return true;
   } else {
     //error
     $("#passwd").removeClass("is-valid");
     $("#passwd").addClass("is-invalid");
     $("#errorPasswd").css("display", "block");
+    $("#errorPasswd").effect("slide");
+    return false;
   }
 }
+
+
+

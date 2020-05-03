@@ -12,22 +12,36 @@
     <!-- para q funcione el plugin <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
     <title>Formlario</title>
+
+    <style>
+      
+      #errorDni {
+        display: none;
+      }
+
+      #btn-volver {
+        position: relative;
+        width: 0px;
+        height: 0px;
+      }
+
+    </style>
   </head>
   <body>
-    <div id='main' class="container">
+    <div id='main' class="container my-5">
       <form id="formulario">
         <!--nombre-->
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" id="nombre" />
-            <div id="errorNombre" class="invalid-tooltip">
+            <div id="errorNombre" class="error invalid-tooltip">
               Nombre incorrecto
             </div>
           </div>
         </div>
         <!--apellido-->
-        <div class="form-row">
+        <div class="form-row mt-3">
           <div class="col-md-4 mb-3">
             <label for="apellido">Apellidos</label>
             <input type="text" class="form-control" id="apellido" />
@@ -37,16 +51,18 @@
           </div>
         </div>
         <!--dni-->
-        <div class="form-row">
+        <div class="form-row mt-3">
           <div class="col-md-4 mb-3">
             <label for="dni">DNI</label>
             <input type="text" class="form-control" id="dni" />
-            <div class="error"></div>
+            <div id="errorDni">
+              Debe introducir un DNI correcto
+            </div>
           </div>
         </div>
         <!--edad-->
 
-        <div class="form-group">
+        <div class="form-group mt-3">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="edad" />
             <label class="form-check-label" for="edad">
@@ -56,7 +72,7 @@
         </div>
 
         <!--email-->
-        <div class="form-row">
+        <div class="form-row mt-4">
           <div class="col-md-4 mb-3">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" />
@@ -66,10 +82,10 @@
           </div>
         </div>
         <!--password-->
-        <div class="form-row">
+        <div class="form-row mt-3">
           <div class="col-md-4 mb-3">
             <label for="contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="passwd" />
+            <input type="text" class="form-control" id="passwd" />
             <div id="errorPasswd" class="invalid-tooltip">
               Debe contener mas de 8 cifras entre mayusculas minusculas y
               simbolos
@@ -77,7 +93,7 @@
           </div>
         </div>
 
-        <button class="btn btn-success" type="submit" id="bt">Enviar</button>
+        <button class="btn btn-success mt-5" type="submit" id="bt">Enviar</button>
       </form>
 
     </div>
