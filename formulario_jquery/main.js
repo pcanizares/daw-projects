@@ -80,7 +80,8 @@ $(function () {
   });
 
 
-});
+}); // Fin $(function)
+
 
 function validarFormulario() {
   let ok = true;
@@ -106,7 +107,7 @@ function validarFormulario() {
 
 function nombre() {
   var nombre = $("#nombre").val();
-  var patron = /^[a-zA-Z][a-z A-Z]*$/;
+  var patron = /^[a-zñA-ZÑ][a-zñ A-ZÑ]*$/;
   if (nombre.match(patron)) {
     //limpiar
     $("#nombre").removeClass("is-invalid");
@@ -127,7 +128,7 @@ function nombre() {
 function apellido() {
   var apellido = $("#apellido").val();
   //asi permite apellido compuestos para no permitr quitar el ultimo +
-  var patron = /^[a-zA-Z]+([\s]{1}[a-zA-Z]+)+$/;
+  var patron = /^[a-zñA-ZÑ]+([\s]{1}[a-zñA-ZÑ]+)+$/;
   if (apellido.match(patron)) {
     //limpiar
     $("#apellido").removeClass("is-invalid");
@@ -151,8 +152,9 @@ function dni(clickBoton = false) {
   var dni = $("#dni").val();
 
   var patron = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]{1}$/;
-  console.log("length", dni.length);
+
   let ok = true;
+  
   if (dni.match(patron)) {
     if (dni.length == 9) {
       let numero = dni.substr(0, 8);
