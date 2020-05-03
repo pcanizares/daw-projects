@@ -1,21 +1,60 @@
 $(function () {
+
+  // Inicializar edad a no checked
   $("#edad").prop("checked", false);
-//  $(document).ready(function () {
-    $("#passwd").strength({
 
-  scoreLables: {
-          empty: 'Vacío',
-          invalid: 'Invalido',
-          weak: 'Debil',
-          good: 'Bueno',
-          strong: 'Fuerte'
-      }
-//});
+  // pluggin fuerza contraseña
+  $("#passwd").strength({
+    scoreLables: {
+      empty: "",
+      invalid: "Invalido",
+      weak: "Debil",
+      good: "Bueno",
+      strong: "Fuerte",
+    },
+    templates: {
+      toggle:
+        '',
+      meter: '<div class="{meterClass}">{score}</div>',
+      score: '<span class="badge {scoreClass}"></span>',
+      main:
+        '<div class="{containerClass}"><div class="input-group">{input}{toggle}</div>{meter}</div>'
+    },
+    scoreClasses: {
+      empty: '',
+      invalid: 'badge-danger',
+      weak: 'badge-warning',
+      good: 'badge-info',
+      strong: 'badge-success'
+    },
+  });
+
+  // Boton modal
+  $('#bt-m').click(function() {
+    // Crear boton volver
+    let volver = '<div id="divBtnVolver"><button type="button" id="btn-volver" class="btn btn-primary btn-block">Volver al formulario</button></div>';
+
+    // Ocultar formulario
+    $('#formulario').css('display', 'none');
+
+    // Mostrar boton volver
+    $('#main').append(volver);
+  });
 
 
+  // Boton volver al formulario
+  $(document).on('click', '#btn-volver', function() {
+    // Quitar la capa del boton volver
+    $('#divBtnVolver').remove();
 
-});
+    // Mostrar de nuevo el formulario
+    $('#formulario').css('display', 'block');
 
+    // Inicializar el checkbox a no checked
+    $("#edad").prop("checked", false);
+  });
+
+  // Boton enviar formulario
   $("#bt").click(function (e) {
     e.preventDefault();
     nombre();
@@ -106,29 +145,16 @@ function edad() {
       if (this.readyState == 4 && this.status == 200) {
         $("#mensaje").html(this.responseText);
         $("#modal").modal("show");
-        
-        $("#bt-m").remove(); //eliminar boton
-        //crear boton
-        var boton ='<button class="btn btn-primary" id="bt-m" data-dismiss="modal" >Volver</button>';
-        $("#bt-modal").append(boton);
-        
-        //al pulsar boton
-        $("#bt-m").click(function () {
-          //mostrar formulario
-          $("#formulario").css("display", "block");
-          //desmarcar 
-          $("#edad").prop("checked", false);
-        });
       }
     };
   }
 }
 function email() {
-  var email= $("#email").val();
-  var patron=/^[a-zA-Z]+[a-zA-Z0-9_\.]*@[a-zA-Z]+\.[a-zA-Z]{2,3}$/;
+  var email = $("#email").val();
+  var patron = /^[a-zA-Z]+[a-zA-Z0-9_\.]*@[a-zA-Z]+\.[a-zA-Z]{2,3}$/;
   if (email.match(patron)) {
-   //limpiar
-   $("#email").removeClass("is-invalid");
+    //limpiar
+    $("#email").removeClass("is-invalid");
     $("#email").addClass("is-valid");
     $("#errorEmail").css("display", "none");
   } else {
@@ -139,12 +165,12 @@ function email() {
   }
 }
 function passwd() {
-  var passwd= $("#passwd").val();
-  
-  var patron=/^(?=.*[!|"@·#$~%€&¬\/\(\)\=\?\'\¿\¡\^\`\[\*\+\]\}\{\¨\´\{\<\>\;\,\:\.\-\_])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  var passwd = $("#passwd").val();
+
+  var patron = /^(?=.*[!|"@·#$~%€&¬\/\(\)\=\?\'\¿\¡\^\`\[\*\+\]\}\{\¨\´\{\<\>\;\,\:\.\-\_])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   if (passwd.match(patron)) {
-   //limpiar
-   $("#passwd").removeClass("is-invalid");
+    //limpiar
+    $("#passwd").removeClass("is-invalid");
     $("#passwd").addClass("is-valid");
     $("#errorPasswd").css("display", "none");
   } else {
